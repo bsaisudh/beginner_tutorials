@@ -1,13 +1,12 @@
-## beginner_tutorials
-Beginner tutorial for ROS
+# Beginner Turorial for ROS
 
 ## Overview
 
-This tutorial explains the basic subscriber publiser pattern on ROS Kinatic. This tutorial example has a talker node, listener node and related servieces and messages
+This tutorial explains the basic subscriber publiser pattern on ROS Kinatic. beginner_tutorials package includes talker node, listener node and related servieces and messages
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/bsaisudh/beginner_tutorials/blob/master/LICENSE) file for details
 
 ## ROS installation
 
@@ -15,30 +14,30 @@ ROS Kinetic is needed for tis tutorial. Visit the [ROS Kinetic installation](htt
 
 ## ROS package dependencies
 
-cpp_common
-rostime
-roscpp_traits
-roscpp_serialization
-catkin
-genmsg
-genpy
-message_runtime
-gencpp
-geneus
-gennodejs
-genlisp
-message_generation
-rosbuild
-rosconsole
-std_msgs
-rosgraph_msgs
-xmlrpcpp
-roscpp
-rosgraph
-ros_environment
-rospack
-roslib
-rospy
+cpp_common  
+rostime  
+roscpp_traits  
+roscpp_serialization  
+catkin  
+genmsg  
+genpy  
+message_runtime  
+gencpp  
+geneus  
+gennodejs  
+genlisp  
+message_generation  
+rosbuild  
+rosconsole  
+std_msgs  
+rosgraph_msgs  
+xmlrpcpp  
+roscpp  
+rosgraph  
+ros_environment  
+rospack  
+roslib  
+rospy  
 
 Note: Most of the packages are by default installed with ROS full development installation
 
