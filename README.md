@@ -1,4 +1,5 @@
-# Beginner Turorial for ROS
+![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)(https://github.com/bsaisudh/beginner_tutorials/blob/master/LICENSE)
+# ENPM 808X Beginner Turorial for ROS
 
 ## Overview
 
@@ -7,6 +8,13 @@ This tutorial explains the basic subscriber publiser pattern on ROS Kinatic. beg
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/bsaisudh/beginner_tutorials/blob/master/LICENSE) file for details
+
+## Dependencies
+
+These ROS nodes are made to be used on systems which have:
+* ROS Kinetic
+* catkin
+* Ubuntu 16.04
 
 ## ROS installation
 
@@ -74,6 +82,23 @@ rosrun beginner_tutorials talker        // Run talker node
 rosrun beginner_tutorials listener      // Run Listener node
 // Press CTRL + C to terminate
 ```
+
+## ROS Graph
+
+</p>
+<p align="center">
+<img src="/readme_images/Listener Talker Graph.png">
+</p>
+</p>
+
+
+## Tutorial terminal output
+
+</p>
+<p align="center">
+<img src="/readme_images/Listener Talker.png">
+</p>
+</p>
 
 
 
