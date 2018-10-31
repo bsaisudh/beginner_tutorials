@@ -1,4 +1,4 @@
-![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)(https://github.com/bsaisudh/beginner_tutorials/blob/master/LICENSE)
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/bsaisudh/beginner_tutorials/blob/master/LICENSE)
 # ENPM 808X Beginner Turorial for ROS
 
 ## Overview
