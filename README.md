@@ -109,7 +109,17 @@ rosservice call /custom_message 'Fear the turtle'
   success : True
   response : Message is changed
   ```
+
+### Tutorial Output running from command line
+
+</p>
+<p align="center">
+<img src="/readme_images/Listener Talker.png">
+</p>
+</p>
+
 ## Running with launch file
+
 * Both talker and listener can be launched at the same time using launch file using below command
   The argument 'rate' specifies the loop rate of the talker node. It is optional and if not specified the default value is 10 Hz.
   'rate' argument accepts accepts value from the range \[1, 50) in Hz.
@@ -134,6 +144,14 @@ rosservice call /custom_message 'Fear the turtle'
   success : True
   response : Message is changed
   ```
+### Tutorial Output running from launch file
+
+</p>
+<p align="center">
+<img src="/readme_images/Listener Talker Launch File.png">
+</p>
+</p>
+
 
 ## ROS Graph
 
@@ -166,14 +184,6 @@ rosrun rqt_logger_level rqt_logger_level
 ```
 rosrun rqt_console rqt_console
 ```
-
-## Tutorial terminal output
-
-</p>
-<p align="center">
-<img src="/readme_images/Listener Talker.png">
-</p>
-</p>
 
 
 

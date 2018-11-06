@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
   std::stringstream ss;
   ss.exceptions(std::ios::failbit);
   ss << argv[1];
-  int looprate;
+  double looprate;
 // try and catch exception
   try {
     ss >> looprate;
