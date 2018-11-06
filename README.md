@@ -74,14 +74,66 @@ catkin_make install
 source ./devel/setup.bash
 (source ./devel/setup.zsh  // For zsh shell)
 ```
-* Running the tutorial
+## Running tutorial form command line
+
+* Running roscore and listener
 ```
 // Run each command in a seperate terminal
 roscore                                 // Start ROS master
-rosrun beginner_tutorials talker        // Run talker node
-rosrun beginner_tutorials listener      // Run Listener node
+rosrun beginner_tutorials listener        // Run talker node
 // Press CTRL + C to terminate
 ```
+* Running talker form
+  'rosrun beginner_tutorials listener \[looprate\]' is the commandline format.
+  \[looprate\] is optional parameter and accepts value from the range \[1, 50) in Hz.
+  The default looprate is 10 Hz
+```
+// Run talker node at loop rate of 10 Hz
+rosrun beginner_tutorials talker 10
+```
+* Calling service to change to different message
+```
+rosservice call /toggle_msg
+```
+  the output should be
+  ```
+  success : True
+  message : Message is changed
+  ```
+* Calling service to change to different message
+```
+rosservice call /custom_message 'Fear the turtle'
+```
+  the output should be
+  ```
+  success : True
+  response : Message is changed
+  ```
+## Running with launch file
+* Both talker and listener can be launched at the same time using launch file using below command
+  The argument 'rate' specifies the loop rate of the talker node. It is optional and if not specified the default value is 10 Hz.
+  'rate' argument accepts accepts value from the range \[1, 50) in Hz.
+```
+roslaunch beginner_tutorials beginner_tutorials.launch rate:=5
+```
+* Calling service to change to different message from commandline
+```
+rosservice call /toggle_msg
+```
+  the output should be
+  ```
+  success : True
+  message : Message is changed
+  ```
+* Calling service to change to different message from commandline
+```
+rosservice call /custom_message 'Fear the turtle'
+```
+  the output should be
+  ```
+  success : True
+  response : Message is changed
+  ```
 
 ## ROS Graph
 
@@ -91,6 +143,29 @@ rosrun beginner_tutorials listener      // Run Listener node
 </p>
 </p>
 
+## Changing loogger level using rqt_logger_level
+
+* Run both talker and listener nodes
+* Open rqt_logger_level
+```
+rosrun rqt_logger_level rqt_logger_level
+```
+* Select the  node and select logger level as needed form the GUI
+
+</p>
+<p align="center">
+<img src="/readme_images/Logger Level.png">
+</p>
+</p>
+
+## Viewing Log Messages
+
+* Run both talker and listener nodes
+* Set required logger levels
+* Run rqt_console
+```
+rosrun rqt_console rqt_console
+```
 
 ## Tutorial terminal output
 
