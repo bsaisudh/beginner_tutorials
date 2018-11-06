@@ -6,7 +6,6 @@
  * @brief This demonstrates simple sending of messages over the ROS system and depicts a listener node.
  */
 
-
 /*
  * MIT License
  *

@@ -1,3 +1,8 @@
 Done processing ./src/listener.cpp
+./src/talker.cpp:43:  Static/global string variables are not permitted.  [runtime/string] [4]
+./src/talker.cpp:51:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::custom_message::Request &req  [runtime/references] [2]
+./src/talker.cpp:52:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::custom_message::Response &resp  [runtime/references] [2]
+./src/talker.cpp:67:  Is this a non-const reference? If so, make const or use a pointer: std_srvs::Trigger::Request &req  [runtime/references] [2]
+./src/talker.cpp:68:  Is this a non-const reference? If so, make const or use a pointer: std_srvs::Trigger::Response &resp  [runtime/references] [2]
 Done processing ./src/talker.cpp
-
+Total errors found: 5
