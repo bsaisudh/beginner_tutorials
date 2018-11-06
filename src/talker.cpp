@@ -50,12 +50,19 @@ std::string outMsg = "Go Terps!";
  */
 bool getMessage(beginner_tutorials::custom_message::Request &req,
                 beginner_tutorials::custom_message::Response &resp) {
-  outMsg = req.message;
-  ROS_DEBUG_STREAM("Received service request");
-  ROS_INFO_STREAM("Sending \"" << req.message << "\" as message");
-  resp.response = "Message is changed";
-  resp.success = true;
-  return true;
+  if (req.message.empty()) {
+    ROS_ERROR_STREAM("Empty message received; No action taken");
+    resp.response = "No Action Taken";
+    resp.success = false;
+    return true;
+  } else {
+    outMsg = req.message;
+    ROS_DEBUG_STREAM("Received service request");
+    ROS_INFO_STREAM("Sending \"" << req.message << "\" as message");
+    resp.response = "Message is changed";
+    resp.success = true;
+    return true;
+  }
 }
 
 /**

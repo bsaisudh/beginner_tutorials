@@ -184,6 +184,10 @@ rosrun rqt_logger_level rqt_logger_level
 ```
 rosrun rqt_console rqt_console
 ```
-
+</p>
+<p align="center">
+<img src="/readme_images/Logger levels and console.png">
+</p>
+</p>
 
 
