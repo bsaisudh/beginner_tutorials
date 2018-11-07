@@ -65,7 +65,7 @@ cd src
 * Clone beginner_tutorials repository
 ```
 cd path_to_catkin_workspace/src
-git clone -b Week10_HW -recursive https://github.com/bsaisudh/beginner_tutorials.git
+git clone -b Week10_HW --recursive https://github.com/bsaisudh/beginner_tutorials.git
 ```
 * Build package and install using catkin
 ```
