@@ -1,9 +1,9 @@
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/bsaisudh/beginner_tutorials/blob/master/LICENSE)
-# ENPM 808X Beginner Turorial for ROS
+# ENPM 808X Beginner Tutorial for ROS
 
 ## Overview
 
-This tutorial explains the basic subscriber publiser pattern on ROS Kinatic. beginner_tutorials package includes talker node, listener node and related servieces and messages
+This tutorial explains the basic subscriber publisher pattern on ROS Kinetic. beginner_tutorials package includes talker node, listener node and related services and messages
 
 ## License
 
@@ -65,7 +65,7 @@ cd src
 * Clone beginner_tutorials repository
 ```
 cd path_to_catkin_workspace/src
-git clone --recursive https://github.com/bsaisudh/beginner_tutorials.git
+git clone -b Week10_HW -recursive https://github.com/bsaisudh/beginner_tutorials.git
 ```
 * Build package and install using catkin
 ```
@@ -161,7 +161,7 @@ rosservice call /custom_message 'Fear the turtle'
 </p>
 </p>
 
-## Changing loogger level using rqt_logger_level
+## Changing logger level using rqt_logger_level
 
 * Run both talker and listener nodes
 * Open rqt_logger_level
