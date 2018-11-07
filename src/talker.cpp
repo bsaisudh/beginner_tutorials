@@ -50,6 +50,7 @@ std::string outMsg = "Go Terps!";
  */
 bool getMessage(beginner_tutorials::custom_message::Request &req,
                 beginner_tutorials::custom_message::Response &resp) {
+  // Checking for validity of message
   if (req.message.empty()) {
     ROS_ERROR_STREAM("Empty message received; No action taken");
     resp.response = "No Action Taken";
@@ -80,6 +81,7 @@ bool toggleMessage(std_srvs::Trigger::Request &req,
   resp.success = true;
   return true;
 }
+
 /**
  * @brief Main block that runs the node.
  * @param argc Number of command line arguments
@@ -87,14 +89,14 @@ bool toggleMessage(std_srvs::Trigger::Request &req,
  * @return Status of execution
  */
 int main(int argc, char **argv) {
-// Initializing ROS node
+  // Initializing ROS node
   ros::init(argc, argv, "talker");
-// Parse command line arguments
+  // Parse command line arguments
   std::stringstream ss;
   ss.exceptions(std::ios::failbit);
   ss << argv[1];
   double looprate;
-// try and catch exception
+  // try and catch exception form argument conversion
   try {
     ss >> looprate;
   } catch (std::exception &e) {
@@ -102,7 +104,7 @@ int main(int argc, char **argv) {
     ROS_WARN_STREAM("Setting default looprate, looprate = 10 Hz");
     looprate = 10;
   }
-// Handling loop rate errors
+  // Handling loop rate errors
   if (looprate == 0) {
     ROS_ERROR_STREAM("Invalid looprate : " << looprate);
     ROS_WARN_STREAM("Setting default looprate, looprate = 10 Hz");
@@ -113,20 +115,20 @@ int main(int argc, char **argv) {
   } else {
     ROS_INFO_STREAM("Setting looprate to " << looprate);
   }
-// Creating node handle
+  // Creating node handle
   ros::NodeHandle n;
-// Creating publisher object
+  // Creating publisher object
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
-// Subscribe to service call
+  // Subscribe to service call
   ros::ServiceServer toggleServer = n.advertiseService("toggle_msg",
                                                        &toggleMessage);
   ros::ServiceServer customMsgServer = n.advertiseService("custom_message",
                                                           &getMessage);
-// Setup loop rate
+  // Setup loop rate
   ros::Rate loop_rate(looprate);
-// Message counter
+  // Message counter
   int count = 1;
-// Loop till ROS system is active
+  // Loop till ROS system is active
   while (ros::ok()) {
     // Creating message object
     std_msgs::String msg;
