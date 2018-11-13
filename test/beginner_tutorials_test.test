@@ -1,0 +1,14 @@
+<launch>
+    <arg name = "rate" default = "5" />
+    <node
+      name="talker"
+      pkg="beginner_tutorials"
+      type="talker"
+      args="$(arg rate)"
+    />
+    <test
+      test-name="beginnerTutorialsTest"
+      pkg="beginner_tutorials"
+      type="beginner_tutorials_test"
+    />
+</launch>

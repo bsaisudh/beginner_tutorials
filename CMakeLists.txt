@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(beginner_tutorials)
 
+add_compile_options(-std=c++11 -Wall -Wextra)
+
 ## Find catkin and any catkin packages
 
 find_package(catkin REQUIRED COMPONENTS
@@ -32,3 +34,14 @@ add_dependencies(talker beginner_tutorials_generate_messages_cpp)
 add_executable(listener src/listener.cpp)
 target_link_libraries(listener ${catkin_LIBRARIES})
 add_dependencies(listener beginner_tutorials_generate_messages_cpp)
+
+if(CATKIN_ENABLE_TESTING)
+  find_package(rostest REQUIRED)
+  add_rostest_gtest(beginner_tutorials_test test/beginner_tutorials_test.test
+					    test/main.cpp 
+					    test/talkerTest.cpp)
+  target_link_libraries(beginner_tutorials_test 
+					    ${catkin_LIBRARIES})
+  add_dependencies(beginner_tutorials_test
+					    beginner_tutorials_generate_messages_cpp)
+endif()

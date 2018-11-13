@@ -89,7 +89,7 @@ bool toggleMessage(std_srvs::Trigger::Request &req,
  * @return None
  */
 void broadcastTf() {
-  // Initializing a broadcaste for transform frame
+  // Initializing a broadcast for transform frame
   static tf::TransformBroadcaster br;
   // Create transform variable
   tf::Transform transform;
@@ -102,8 +102,7 @@ void broadcastTf() {
   transform.setRotation(q);
   // Broadcast transform frame to talker with respect to world frame
   br.sendTransform(
-      tf::StampedTransform(transform, ros::Time::now(),
-                           "world", "talker"));
+      tf::StampedTransform(transform, ros::Time::now(), "world", "talker"));
 }
 
 /**
