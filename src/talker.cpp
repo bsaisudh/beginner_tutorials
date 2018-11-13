@@ -41,7 +41,7 @@
 #include "beginner_tutorials/custom_message.h"
 
 // Global variables
-std::string outMsg = "Go Terps!";
+extern std::string outMsg = "Go Terps!";
 
 /**
  * @brief service to change the output string to a custom message.
