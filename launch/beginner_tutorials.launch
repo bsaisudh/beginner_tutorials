@@ -1,5 +1,6 @@
 <launch>
     <arg name = "rate" default = "10" />
+    <arg name = "record" default = "0" />
     <node
       name="talker"
       pkg="beginner_tutorials"
@@ -15,4 +16,12 @@
       launch-prefix="xterm -e"
       respawn = "true"
     />
+    <group if = "$(arg record)">
+      <node
+        name="record_beginner_tutorials"
+        pkg="rosbag"
+        type="record"
+        args="-a -O record_beginner_tutorials.bag --duration=20"
+    />
+    </group>
 </launch>
