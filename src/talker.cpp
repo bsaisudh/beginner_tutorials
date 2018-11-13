@@ -30,11 +30,57 @@
  * SOFTWARE.
  */
 
-
 #include <sstream>
+#include <string>
+#include <iostream>
 
 #include "ros/ros.h"
+#include "std_srvs/Trigger.h"
 #include "std_msgs/String.h"
+#include "beginner_tutorials/custom_message.h"
+
+// Global variables
+std::string outMsg = "Go Terps!";
+
+/**
+ * @brief service to change the output string to a custom message.
+ * @param req reference to request object
+ * @param resp reference to response object
+ * @return boolean success or failure
+ */
+bool getMessage(beginner_tutorials::custom_message::Request &req,
+                beginner_tutorials::custom_message::Response &resp) {
+  // Checking for validity of message
+  if (req.message.empty()) {
+    ROS_ERROR_STREAM("Empty message received; No action taken");
+    resp.response = "No Action Taken";
+    resp.success = false;
+    return true;
+  } else {
+    outMsg = req.message;
+    ROS_DEBUG_STREAM("Received service request");
+    ROS_INFO_STREAM("Sending \"" << req.message << "\" as message");
+    resp.response = "Message is changed";
+    resp.success = true;
+    return true;
+  }
+}
+
+/**
+ * @brief service to change the output string to a different message.
+ * @param req reference to request object
+ * @param resp reference to response object
+ * @return boolean success or failure
+ */
+bool toggleMessage(std_srvs::Trigger::Request &req,
+                   std_srvs::Trigger::Response &resp) {
+  outMsg = "Go Green!";
+  ROS_DEBUG_STREAM("Received service request");
+  ROS_INFO_STREAM("Sending different message");
+  resp.message = "Message is changed";
+  resp.success = true;
+  return true;
+}
 
 /**
  * @brief Main block that runs the node.
@@ -45,28 +91,61 @@
 int main(int argc, char **argv) {
   // Initializing ROS node
   ros::init(argc, argv, "talker");
+  // Parse command line arguments
+  std::stringstream ss;
+  ss.exceptions(std::ios::failbit);
+  ss << argv[1];
+  double looprate;
+  // try and catch exception form argument conversion
+  try {
+    ss >> looprate;
+  } catch (std::exception &e) {
+    ROS_FATAL_STREAM("Command line argument error : "<< e.what());
+    ROS_WARN_STREAM("Setting default looprate, looprate = 10 Hz");
+    looprate = 10;
+  }
+  // Handling loop rate errors
+  if (looprate == 0) {
+    ROS_ERROR_STREAM("Invalid looprate : " << looprate);
+    ROS_WARN_STREAM("Setting default looprate, looprate = 10 Hz");
+    looprate = 10;
+  } else if (looprate > 50) {
+    ROS_ERROR_STREAM("Invalid looprate : " << looprate);
+    ROS_WARN_STREAM("Setting default looprate, looprate = 10 Hz");
+  } else {
+    ROS_INFO_STREAM("Setting looprate to " << looprate);
+  }
   // Creating node handle
   ros::NodeHandle n;
   // Creating publisher object
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+  // Subscribe to service call
+  ros::ServiceServer toggleServer = n.advertiseService("toggle_msg",
+                                                       &toggleMessage);
+  ros::ServiceServer customMsgServer = n.advertiseService("custom_message",
+                                                          &getMessage);
   // Setup loop rate
-  ros::Rate loop_rate(10);
+  ros::Rate loop_rate(looprate);
   // Message counter
-  int count = 0;
+  int count = 1;
   // Loop till ROS system is active
   while (ros::ok()) {
     // Creating message object
     std_msgs::String msg;
-    // Creaing string stream object
+    // Creating string stream object
     std::stringstream ss;
     // Sending message to string stream
-    ss << "Hello Terps!! " << count;
+    ss << outMsg << " " << count;
     // Assign message to object
     msg.data = ss.str();
     // Printing on console output
     ROS_INFO_STREAM(msg.data.c_str());
     // Publish message to topic
     chatter_pub.publish(msg);
+    // Warn every 100 messages
+    if (count % 100 == 0) {
+      ROS_WARN_STREAM("Count reached to : " << count);
+    }
     // Check for call back
     ros::spinOnce();
     // Wait for required time
