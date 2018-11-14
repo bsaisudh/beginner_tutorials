@@ -41,9 +41,12 @@
  * @brief Testing the existence of custom message server
  */
 TEST(talkerNodeService, customMessageExistance) {
+  // Initializing node handle
   ros::NodeHandle nh;
+  // Initialize service client
   auto client = nh.serviceClient<beginner_tutorials::custom_message>(
       "custom_message");
+  // Wait for exitstance and test
   EXPECT_TRUE(client.waitForExistence(ros::Duration(5)));;
 }
 
@@ -51,8 +54,11 @@ TEST(talkerNodeService, customMessageExistance) {
  * @brief Testing the existence of toggle message server
  */
 TEST(talkerNodeService, toggleMessageExistance) {
+  // Initializing node handle
   ros::NodeHandle nh;
+  // Create client to request to service
   auto client = nh.serviceClient<std_srvs::Trigger>("toggle_msg");
+  // Wait for existance and test
   EXPECT_TRUE(client.waitForExistence(ros::Duration(5)));
 }
 
@@ -60,12 +66,18 @@ TEST(talkerNodeService, toggleMessageExistance) {
  * @brief Testing custom message server call
  */
 TEST(talkerNodeService, customMessagerun) {
+  // Inititalize node handle
   ros::NodeHandle nh;
+  // Create service client
   auto client = nh.serviceClient<beginner_tutorials::custom_message>(
       "custom_message");
+  // Create message object
   beginner_tutorials::custom_message msg;
+  // Assign message
   msg.request.message = "Go Green";
+  // Call service
   client.call(msg.request, msg.response);
+  // Verivy response
   EXPECT_STREQ("Message is changed", msg.response.response.c_str());
   EXPECT_TRUE(msg.response.success);
 }
@@ -74,10 +86,15 @@ TEST(talkerNodeService, customMessagerun) {
  * @brief Testing toggle message server call
  */
 TEST(talkerNodeService, toggleMessageRun) {
+  // Initialize node handle
   ros::NodeHandle nh;
+  // Create service client
   auto client = nh.serviceClient<std_srvs::Trigger>("toggle_msg");
+  // Initialize message object
   std_srvs::Trigger msg;
+  // Call service
   client.call(msg.request, msg.response);
+  // Verify response 
   EXPECT_STREQ("Message is changed", msg.response.message.c_str());
   EXPECT_TRUE(msg.response.success);
 }

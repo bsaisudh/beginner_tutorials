@@ -40,8 +40,11 @@
  * @return Status of execution
  */
 int main(int argc, char** argv) {
+  // Initializing ROS
   ros::init(argc, argv, "talkerTest");
+  // Initializing google test framework
   ::testing::InitGoogleTest(&argc, argv);
+  // Running all tests
   return RUN_ALL_TESTS();
 }
 
