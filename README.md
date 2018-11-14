@@ -3,7 +3,9 @@
 
 ## Overview
 
-This tutorial explains the basic subscriber publisher pattern on ROS Kinetic. beginner_tutorials package includes talker node, listener node and related services and messages
+This tutorial explains the basic subscriber publisher pattern on ROS Kinetic. beginner_tutorials package includes talker node, listener node and related services and messages. It also contains transform frame broadcast example and rosbag record and play instructions. The different options are explained form command line point of view and roslaunch point of view. 
+
+An example for Level 2 integration test using rostest and getest has been provided
 
 ## License
 
@@ -15,6 +17,7 @@ These ROS nodes are made to be used on systems which have:
 * ROS Kinetic
 * catkin
 * Ubuntu 16.04
+* Google test framework
 
 ## ROS installation
 
@@ -46,6 +49,7 @@ ros_environment
 rospack  
 roslib  
 rospy  
+rostest  
 
 Note: Most of the packages are by default installed with ROS full development installation
 
@@ -65,7 +69,7 @@ cd src
 * Clone beginner_tutorials repository
 ```
 cd path_to_catkin_workspace/src
-git clone -b Week10_HW --recursive https://github.com/bsaisudh/beginner_tutorials.git
+git clone -b Week11_HW --recursive https://github.com/bsaisudh/beginner_tutorials.git
 ```
 * Build package and install using catkin
 ```
@@ -74,13 +78,39 @@ catkin_make install
 source ./devel/setup.bash
 (source ./devel/setup.zsh  // For zsh shell)
 ```
+* Build package with rostest
+```
+cd path_to_catkin_workspace
+catkin_make run_tests beginner_tutorials
+source ./devel/setup.bash
+(source ./devel/setup.zsh  // For zsh shell)
+```
+The test output should be
+```
+[ROSUNIT] Outputting test results to /home/bala/workspace/ROS/hello-terp-ws/build/test_results/beginner_tutorials/rostest-test_beginner_tutorials_test.xml
+[Testcase: testbeginnerTutorialsTest] ... ok
+
+[ROSTEST]-----------------------------------------------------------------------
+
+[beginner_tutorials.rosunit-beginnerTutorialsTest/customMessageExistance][passed]
+[beginner_tutorials.rosunit-beginnerTutorialsTest/toggleMessageExistance][passed]
+[beginner_tutorials.rosunit-beginnerTutorialsTest/customMessagerun][passed]
+[beginner_tutorials.rosunit-beginnerTutorialsTest/toggleMessageRun][passed]
+
+SUMMARY
+ * RESULT: SUCCESS
+ * TESTS: 4
+ * ERRORS: 0
+ * FAILURES: 0
+```
+
 ## Running tutorial form command line
 
 * Running roscore and listener
 ```
 // Run each command in a seperate terminal
 roscore                                 // Start ROS master
-rosrun beginner_tutorials listener        // Run talker node
+rosrun beginner_tutorials listener        // Run listener node
 // Press CTRL + C to terminate
 ```
 * Running talker form
@@ -108,7 +138,17 @@ rosservice call /custom_message 'Fear the turtle'
   ```
   success : True
   response : Message is changed
-  ```
+  ``` 
+* Recording messages on all topics for a duration of 10 seconds
+```
+rosbag record --duration=10 -a -O record_beginner_tutorials.bag
+```
+* Playing rosbag file
+```
+roscore		//run roscore
+rosrun beginner_tutorials listener        // Run listener node  alone in seperate terminal
+rosbag play record_beginner_tutorials.bag
+```
 
 ### Tutorial Output running from command line
 
@@ -118,13 +158,29 @@ rosservice call /custom_message 'Fear the turtle'
 </p>
 </p>
 
+### Tutorial Output running from command line - Rosbag Record
+
+</p>
+<p align="center">
+<img src="/readme_images/Rosbag Record.png">
+</p>
+</p>
+
+### Tutorial Output running from command line - Rosbag Play
+
+</p>
+<p align="center">
+<img src="/readme_images/Rosbag Play.png">
+</p>
+</p>
+
 ## Running with launch file
 
 * Both talker and listener can be launched at the same time using launch file using below command
-  The argument 'rate' specifies the loop rate of the talker node. It is optional and if not specified the default value is 10 Hz.
-  'rate' argument accepts accepts value from the range \[1, 50) in Hz.
+  <br>Argument 1 - rate : The argument 'rate' specifies the loop rate of the talker node. It is optional and if not specified the default value is 10 Hz.'rate' argument accepts accepts value from the range \[1, 50) in Hz.
+  <br>Argument 1 - record : The argument 'record' whether to record rosbag files or not. It is optional and if not specified the default value is false. The messages will be recorded for a duration of 20 seconds.
 ```
-roslaunch beginner_tutorials beginner_tutorials.launch rate:=5
+roslaunch beginner_tutorials beginner_tutorials.launch rate:=5 record:=20
 ```
 * Calling service to change to different message from commandline
 ```
@@ -190,4 +246,50 @@ rosrun rqt_console rqt_console
 </p>
 </p>
 
+## Working with tf Frames
+* Run the beginner tutorials launch file. The talker will be broadcasting the transfromation with respect to world frame
+* viewing the frames
+```
+rosrun tf view_frames
+```
+sample output
+```
+Listening to /tf for 5.000000 seconds
+Done Listening
+dot - graphviz version 2.38.0 (20140413.2041)
 
+Detected dot version 2.38
+frames.pdf generated
+```
+* The information on frames broadcasted can be viewed using echo command
+```
+rosrun tf tf_echo world talker
+```
+sample output
+```
+At time 1542156018.162
+- Translation: [5.000, 0.000, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.707, 0.707]
+            in RPY (radian) [0.000, -0.000, 1.570]
+            in RPY (degree) [0.000, -0.000, 89.954]
+At time 1542156018.862
+- Translation: [5.000, 0.000, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.707, 0.707]
+            in RPY (radian) [0.000, -0.000, 1.570]
+            in RPY (degree) [0.000, -0.000, 89.954]
+At time 1542156019.862
+- Translation: [5.000, 0.000, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.707, 0.707]
+            in RPY (radian) [0.000, -0.000, 1.570]
+            in RPY (degree) [0.000, -0.000, 89.954]
+
+```
+* Alternatively the same information can be for using rqt_tf_tree
+```
+rosrun rqt_tf_tree rqt_tf_tree
+```
+</p>
+<p align="center">
+<img src="/readme_images/frames.png">
+</p>
+</p>
