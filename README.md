@@ -211,6 +211,7 @@ rosservice call /custom_message 'Fear the turtle'
 roscore		//run roscore
 rosrun beginner_tutorials listener        // Run listener node  alone in seperate terminal
 rosbag play ./ros/record_beginner_tutorials.bag
+```
 ### Tutorial Output running from launch file
 
 </p>
