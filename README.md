@@ -53,7 +53,7 @@ rostest
 
 Note: Most of the packages are by default installed with ROS full development installation
 
-## Steps for building the package
+## Steps for building package
 
 * Install catkin 
 ```
@@ -78,7 +78,10 @@ catkin_make install
 source ./devel/setup.bash
 (source ./devel/setup.zsh  // For zsh shell)
 ```
-* Build package with rostest
+
+### Running rostest
+
+* Build package aling with rostest
 ```
 cd path_to_catkin_workspace
 catkin_make run_tests beginner_tutorials
@@ -103,7 +106,10 @@ SUMMARY
  * ERRORS: 0
  * FAILURES: 0
 ```
-
+* Runing rostest seperately
+```
+rostest beginner_tutorials beginner_tutorials_test.test
+```
 ## Running tutorial form command line
 
 * Running roscore and listener
@@ -180,7 +186,7 @@ rosbag play record_beginner_tutorials.bag
   <br>Argument 1 - rate : The argument 'rate' specifies the loop rate of the talker node. It is optional and if not specified the default value is 10 Hz.'rate' argument accepts accepts value from the range \[1, 50) in Hz.
   <br>Argument 1 - record : The argument 'record' whether to record rosbag files or not. It is optional and if not specified the default value is false. The messages will be recorded for a duration of 20 seconds.
 ```
-roslaunch beginner_tutorials beginner_tutorials.launch rate:=5 record:=20
+roslaunch beginner_tutorials beginner_tutorials.launch rate:=5 record:=1
 ```
 * Calling service to change to different message from commandline
 ```
@@ -200,6 +206,11 @@ rosservice call /custom_message 'Fear the turtle'
   success : True
   response : Message is changed
   ```
+* Playing rosbag file
+```
+roscore		//run roscore
+rosrun beginner_tutorials listener        // Run listener node  alone in seperate terminal
+rosbag play ./ros/record_beginner_tutorials.bag
 ### Tutorial Output running from launch file
 
 </p>
