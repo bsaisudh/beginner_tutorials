@@ -77,7 +77,7 @@ TEST(talkerNodeService, customMessagerun) {
   msg.request.message = "Go Green";
   // Call service
   client.call(msg.request, msg.response);
-  // Verivy response
+  // Verify response
   EXPECT_STREQ("Message is changed", msg.response.response.c_str());
   EXPECT_TRUE(msg.response.success);
 }

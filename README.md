@@ -5,7 +5,7 @@
 
 This tutorial explains the basic subscriber publisher pattern on ROS Kinetic. beginner_tutorials package includes talker node, listener node and related services and messages. It also contains transform frame broadcast example and rosbag record and play instructions. The different options are explained form command line point of view and roslaunch point of view. 
 
-An example for Level 2 integration test using rostest and getest has been provided
+An example for Level 2 integration test using rostest and gtest has been provided
 
 ## License
 
@@ -19,9 +19,14 @@ These ROS nodes are made to be used on systems which have:
 * Ubuntu 16.04
 * Google test framework
 
+
 ## ROS installation
 
-ROS Kinetic is needed for tis tutorial. Visit the [ROS Kinetic installation](http://wiki.ros.org/kinetic/Installation) page and follow the steps.
+ROS Kinetic is needed for this tutorial. Visit the [ROS Kinetic installation](http://wiki.ros.org/kinetic/Installation) page and follow the steps.
+
+## Gtest installation
+
+Gtest is needed for this tutorial. Visit the [Gtest Installation](http://wiki.ros.org/gtest) page and follow the steps.
 
 ## ROS package dependencies
 
@@ -81,7 +86,7 @@ source ./devel/setup.bash
 
 ### Running rostest
 
-* Build package aling with rostest
+* Build package along with rostest
 ```
 cd path_to_catkin_workspace
 catkin_make run_tests beginner_tutorials
@@ -106,7 +111,7 @@ SUMMARY
  * ERRORS: 0
  * FAILURES: 0
 ```
-* Runing rostest seperately
+* Running rostest separately
 ```
 rostest beginner_tutorials beginner_tutorials_test.test
 ```
@@ -119,8 +124,8 @@ roscore                                 // Start ROS master
 rosrun beginner_tutorials listener        // Run listener node
 // Press CTRL + C to terminate
 ```
-* Running talker form
-  'rosrun beginner_tutorials listener \[looprate\]' is the commandline format.
+* Running talker form command line <br>
+  'rosrun beginner_tutorials listener \[looprate\]' is the command line format.
   \[looprate\] is optional parameter and accepts value from the range \[1, 50) in Hz.
   The default looprate is 10 Hz
 ```
@@ -182,9 +187,9 @@ rosbag play record_beginner_tutorials.bag
 
 ## Running with launch file
 
-* Both talker and listener can be launched at the same time using launch file using below command
-  <br>Argument 1 - rate : The argument 'rate' specifies the loop rate of the talker node. It is optional and if not specified the default value is 10 Hz.'rate' argument accepts accepts value from the range \[1, 50) in Hz.
-  <br>Argument 1 - record : The argument 'record' whether to record rosbag files or not. It is optional and if not specified the default value is false. The messages will be recorded for a duration of 20 seconds.
+* Both talker and listener can be launched at the same time using launch file using below command 
+<br>Argument 1 - rate : The argument 'rate' specifies the loop rate of the talker node. It is optional and if not specified the default value is 10 Hz.'rate' argument accepts accepts value from the range \[1, 50) in Hz.
+<br>Argument 1 - record : The argument 'record' whether to record rosbag files or not. It is optional and if not specified the default value is false. The messages will be recorded for a duration of 20 seconds.
 ```
 roslaunch beginner_tutorials beginner_tutorials.launch rate:=5 record:=1
 ```
@@ -259,7 +264,7 @@ rosrun rqt_console rqt_console
 </p>
 
 ## Working with tf Frames
-* Run the beginner tutorials launch file. The talker will be broadcasting the transfromation with respect to world frame
+* Run the beginner tutorials launch file. The talker will be broadcasting the transformation with respect to world frame
 * viewing the frames
 ```
 rosrun tf view_frames
